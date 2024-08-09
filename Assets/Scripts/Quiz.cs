@@ -23,7 +23,7 @@ public class Quiz : MonoBehaviour
     [SerializeField]
     Sprite correctAnswerSprite;
 
-    void Start()
+    void DisplayQuestion()
     {
         questionText.text = question.GetQuestion();
 
@@ -54,5 +54,30 @@ public class Quiz : MonoBehaviour
             buttonImage = answerButtons[correctAnswerIndex].GetComponent<Image>();
             buttonImage.sprite = correctAnswerSprite;
         }
+        SetButtonState(false);
+    }
+
+    void SetButtonState(bool state)
+    {
+        for (int i = 0; i < answerButtons.Length; i++)
+        {
+            Button button = answerButtons[i].GetComponent<Button>();
+            button.interactable = state;
+        }
+    }
+
+    void SetDefaultButtonSprites()
+    {
+        for (int i = 0; i < answerButtons.Length; i++)
+        {
+            Image buttonImage = answerButtons[i].GetComponent<Image>();
+            buttonImage.sprite = defaultAnswerSprite;
+        }
+    }
+
+    void GetNextQuestion()
+    {
+        SetButtonState(true);
+        DisplayQuestion();
     }
 }
